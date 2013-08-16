@@ -1,0 +1,38 @@
+{
+	"name": "Six Pack Tabs",
+	"manifest_version": 2,
+	"version": "0.2",
+	"description": "Creates keyboard shortcuts to toggle the pinned state of the currently selected tab,  and move tabs left and right. (Map keys at bottom of Extensions page)",
+	"icons": {
+		"16": "files/logo16.png",
+		"48": "files/logo48.png",
+		"128": "files/logo128.png"
+	},
+	"permissions": [
+		"tabs"
+	],
+	"background": {
+		"persistent": false,
+		"scripts": ["background.js"]
+	},
+	"commands": {
+		"toggle-pin": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+I"
+			},
+			"description": "Toggle tab pin"
+		},
+		"tab-left": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+O"
+			},
+			"description": "Move current tab left"
+		},
+		"tab-right": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+P"
+			},
+			"description": "Move current tab right"
+		}
+	}
+}
