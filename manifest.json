@@ -33,6 +33,12 @@
 				"default": "Ctrl+Shift+P"
 			},
 			"description": "Move current tab right"
+		},
+		"tab-merge": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+U"
+			},
+			"description": "Merge all tabs in open windows"
 		}
 	}
 }

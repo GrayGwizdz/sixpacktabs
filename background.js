@@ -71,5 +71,18 @@ chrome.commands.onCommand.addListener(function (command) {
 				}
 			});
 		});
+	/* Merge all tabs in open windows */
+	} else if (command == "tab-merge") {
+		chrome.windows.getCurrent({'populate': true}, function (currentWindow) {
+			chrome.windows.getAll({'populate': true}, function (windows) {
+				for (var i = 0; i < windows.length; i++) {
+					for(tab in windows[i].tabs){
+						if(windows[i].id != currentWindow.id) {
+							chrome.tabs.move(windows[i].tabs[tab].id, {'windowId': currentWindow.id, 'index': -1});
+						}
+					}
+				}
+			});
+		});
 	}
 });
