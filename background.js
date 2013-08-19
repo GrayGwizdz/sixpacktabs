@@ -73,12 +73,21 @@ chrome.commands.onCommand.addListener(function (command) {
 		});
 	/* Merge all tabs in open windows */
 	} else if (command == "tab-merge") {
+		/* Get the window that we will be merging into */
 		chrome.windows.getCurrent({'populate': true}, function (currentWindow) {
 			chrome.windows.getAll({'populate': true}, function (windows) {
 				for (var i = 0; i < windows.length; i++) {
-					for(tab in windows[i].tabs){
-						if(windows[i].id != currentWindow.id) {
-							chrome.tabs.move(windows[i].tabs[tab].id, {'windowId': currentWindow.id, 'index': -1});
+					/* Ignore the current window */
+					if(windows[i].id != currentWindow.id) {
+						for(tab in windows[i].tabs){
+							/* Pin the tab to the new window if it was pinned before */
+							if(windows[i].tabs[tab].pinned) {
+								chrome.tabs.move(windows[i].tabs[tab].id, {'windowId': currentWindow.id, 'index': -1}, function (currentTab) {
+									chrome.tabs.update(currentTab.id, {'pinned': true});
+								});
+							} else {
+								chrome.tabs.move(windows[i].tabs[tab].id, {'windowId': currentWindow.id, 'index': -1});
+							}
 						}
 					}
 				}
